@@ -6,6 +6,7 @@ package GUI;
 
 import java.util.ArrayList;
 import entites.Funcionario;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,10 +36,13 @@ public class Principal extends javax.swing.JFrame {
     
     public void loadTable(){
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"CPF","Nome","Data de Nascimento"}, 0);
+         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         for(int i = 0; i < funcionarios.size(); i++){
+            String date = sdf.format(funcionarios.get(i).getNascimento());
             Object linha[] = new Object[]{funcionarios.get(i).getCpf(),
                                           funcionarios.get(i).getNome(),
-                                          funcionarios.get(i).getNascimento()};
+                                                                    date};
             modelo.addRow(linha);
         }
         
@@ -213,10 +217,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         editar.setVisible(true);
+         int index = tabelaPrincipal.getSelectedRow();
         if(editar.geti()){
             this.d = funcionarios.stream().filter(x -> x.getCpf().equals(editar.getCpf())).findFirst().orElse(null);
-          if(this.d == null){
-            int index = tabelaPrincipal.getSelectedRow();
+          if(funcionarios.get(index).getCpf().equals(editar.getCpf()) && this.d !=null){
             funcionarios.get(index).setCpf(editar.getCpf());
             funcionarios.get(index).setEndereco(editar.getEndereco());
             funcionarios.get(index).setNome(editar.getNome());
