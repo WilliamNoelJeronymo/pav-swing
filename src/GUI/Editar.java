@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,10 @@ public class Editar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
          setLocationRelativeTo(null);
+         txtCpfEditar.setEditable(false);
+
+            JTextFieldDateEditor editor = (JTextFieldDateEditor) txtDataEditar.getDateEditor();
+           editor.setEnabled(false);
     }
     private boolean i = false;
     public boolean geti(){
@@ -179,8 +185,17 @@ public class Editar extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCpfEditarActionPerformed
 
     private void btnSalvarEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarEditarActionPerformed
+        String nome = txtNomeEditar.getText();
+       String endereco = txtEnderecoEditar.getText();
+       Date data = txtDataEditar.getDate();
+        if(data == null ||
+                "".equals(endereco) || 
+                "".equals(nome)){
+               JOptionPane.showMessageDialog(null, "Por favor, verifique se todos os campos estão preenchidos corretamente", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+       }else{
         this.i = true;
         this.dispose();
+        }
     }//GEN-LAST:event_btnSalvarEditarActionPerformed
 
     private void btnCancelarEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditarActionPerformed

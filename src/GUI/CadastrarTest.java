@@ -4,8 +4,10 @@
  */
 package GUI;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.util.Date;
 import entites.Funcionario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,10 +19,12 @@ public class CadastrarTest extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) txtDataCadastrar.getDateEditor();
+           editor.setEnabled(false);
     }
    
     public void setFuncionario(){
-        this.funcionario = new Funcionario(txtNomeCadastrar.getText(), txtEnderecoCadastrar.getText(), txtCpfCadastrar.getText(),txtDataCadastrar.getDate());
+        this.funcionario = new Funcionario(txtNomeCadastrar.getText(), txtEnderecoCadastrar.getText(), txtCpfCadastrar.getText(),txtDataCadastrar.getDate());   
     }
     public Funcionario getFuncionario(){
         if(txtCpfCadastrar.getText() != null || txtEnderecoCadastrar.getText() != null || txtNomeCadastrar.getText() != null || txtDataCadastrar.getDate()!= null){
@@ -160,12 +164,23 @@ public class CadastrarTest extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCpfCadastrarActionPerformed
 
     private void btnSalvarCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastrarActionPerformed
+       String nome = txtNomeCadastrar.getText();
+       String cpf = txtCpfCadastrar.getText();
+       String endereco = txtEnderecoCadastrar.getText();
+       Date data = txtDataCadastrar.getDate();
+        if(data == null ||
+               cpf == null || 
+               endereco == null || 
+               nome == null){
+               JOptionPane.showMessageDialog(null, "Por favor, verifique se todos os campos estão preenchidos corretamente antes de salvar", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+       }else{
         setFuncionario();
         txtCpfCadastrar.setText("");
         txtDataCadastrar.setDate(null);
         txtEnderecoCadastrar.setText("");
         txtNomeCadastrar.setText("");
         this.dispose();
+       }
     }//GEN-LAST:event_btnSalvarCadastrarActionPerformed
 
     private void btnCancelarCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastrarActionPerformed

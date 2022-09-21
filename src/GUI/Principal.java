@@ -15,13 +15,14 @@ import javax.swing.table.DefaultTableModel;
  * @author will
  */
 public class Principal extends javax.swing.JFrame {
+
     ArrayList<Funcionario> funcionarios;
     CadastrarTest cadastro;
     Editar editar;
     View view;
     Procurar procurar;
-    Funcionario d ;
-    
+    Funcionario d;
+
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -33,19 +34,24 @@ public class Principal extends javax.swing.JFrame {
         btn_editar.setEnabled(false);
         btn_view.setEnabled(false);
     }
-    
-    public void loadTable(){
-        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"CPF","Nome","Data de Nascimento"}, 0);
-         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        
-        for(int i = 0; i < funcionarios.size(); i++){
+
+    public void loadTable() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"CPF", "Nome", "Data de Nascimento"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (int i = 0; i < funcionarios.size(); i++) {
             String date = sdf.format(funcionarios.get(i).getNascimento());
             Object linha[] = new Object[]{funcionarios.get(i).getCpf(),
-                                          funcionarios.get(i).getNome(),
-                                                                    date};
+                funcionarios.get(i).getNome(),
+                date};
             modelo.addRow(linha);
         }
-        
+
         tabelaPrincipal.setModel(modelo);
     }
 
@@ -217,25 +223,25 @@ public class Principal extends javax.swing.JFrame {
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         editar.setVisible(true);
-         int index = tabelaPrincipal.getSelectedRow();
-        if(editar.geti()){
-            this.d = funcionarios.stream().filter(x -> x.getCpf().equals(editar.getCpf())).findFirst().orElse(null);
-          if(funcionarios.get(index).getCpf().equals(editar.getCpf()) && this.d !=null){
+        int index = tabelaPrincipal.getSelectedRow();
+        if (editar.geti()) {
+//            this.d = funcionarios.stream().filter(x -> x.getCpf().equals(editar.getCpf())).findFirst().orElse(null);
+//          if(funcionarios.get(index).getCpf().equals(editar.getCpf()) || this.d !=null){
             funcionarios.get(index).setCpf(editar.getCpf());
             funcionarios.get(index).setEndereco(editar.getEndereco());
             funcionarios.get(index).setNome(editar.getNome());
             funcionarios.get(index).setNascimento(editar.getData());
             loadTable();
             JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso");
-          }else{
-             JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO EDITAR", JOptionPane.ERROR_MESSAGE);
-          }
+//          }else{
+//             JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO EDITAR", JOptionPane.ERROR_MESSAGE);
+//          }
         }
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
         int index = tabelaPrincipal.getSelectedRow();
-        if(index >= 0 && index<funcionarios.size()){
+        if (index >= 0 && index < funcionarios.size()) {
             funcionarios.remove(index);
             loadTable();
             JOptionPane.showMessageDialog(null, "Funcionario Excluido com sucesso");
@@ -248,25 +254,24 @@ public class Principal extends javax.swing.JFrame {
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         cadastro.setVisible(true);
         Funcionario f = cadastro.getFuncionario();
-        
-          this.d = funcionarios.stream().filter(x -> x.getCpf().equals(f.getCpf())).findFirst().orElse(null);
-          if(this.d == null){
-            if(!"".equals(f.getCpf()) && !"".equals(f.getEndereco()) && !"".equals(f.getNascimento()) && !"".equals(f.getNome())){
+        this.d = funcionarios.stream().filter(x -> x.getCpf().equals(f.getCpf())).findFirst().orElse(null);
+        if (this.d == null) {
+            if (!"".equals(f.getCpf()) && !"".equals(f.getEndereco()) && !"".equals(f.getNome())) {
                 funcionarios.add(f);
                 loadTable();
                 JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso");
                 cadastro.clearFuncionario();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos antes de salvar", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
             }
-          }else{
-               JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
-          }
+        } else {
+            JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     private void tabelaPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPrincipalMouseClicked
         int index = tabelaPrincipal.getSelectedRow();
-        if(index >= 0 && index<funcionarios.size()){
+        if (index >= 0 && index < funcionarios.size()) {
             Funcionario f = funcionarios.get(index);
             editar.setCpf(f.getCpf());
             editar.setNome(f.getNome());
