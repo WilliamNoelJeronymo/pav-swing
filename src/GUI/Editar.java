@@ -196,10 +196,11 @@ public class Editar extends javax.swing.JDialog {
 
         if (getData() == null
                 || getNome().isEmpty()
-                || getCpf().isEmpty()
+                || getCpf()== "   .   .   -"
                 || getEndereco().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, verifique se todos os campos estão preenchidos corretamente", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
         } else {
+            System.out.println(getCpf());
             this.i = true;
             this.dispose();
         }

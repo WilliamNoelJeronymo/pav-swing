@@ -287,14 +287,15 @@ public class Principal extends javax.swing.JFrame {
         Funcionario f = cadastro.getFuncionario();
         this.d = funcionarios.stream().filter(x -> x.getCpf().equals(f.getCpf())).findFirst().orElse(null);
         if (this.d == null) {
-            if (!"".equals(f.getCpf()) && !"".equals(f.getEndereco()) && !"".equals(f.getNome())) {
+            System.out.println(f.getCpf());
+            if (!"   .   .   -  ".equals(f.getCpf()) && !"".equals(f.getEndereco()) && !"".equals(f.getNome())) {
                 funcionarios.add(f);
                 func.add(f);
                 loadTable();
                 JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso");
                 cadastro.clearFuncionario();
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos antes de salvar", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos corretamente antes de salvar", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
