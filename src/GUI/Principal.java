@@ -9,6 +9,7 @@ import entites.Funcionario;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -16,12 +17,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Principal extends javax.swing.JFrame {
 
-    ArrayList<Funcionario> funcionarios;
+    ArrayList<Funcionario> funcionarios, func;
+    String e = null;
     CadastrarTest cadastro;
     Editar editar;
     View view;
     Procurar procurar;
-    Funcionario d;
+    Funcionario d, funcd;
 
     public Principal() {
         initComponents();
@@ -29,7 +31,8 @@ public class Principal extends javax.swing.JFrame {
         this.cadastro = new CadastrarTest(this, rootPaneCheckingEnabled);
         this.editar = new Editar(this, rootPaneCheckingEnabled);
         this.view = new View(this, rootPaneCheckingEnabled);
-        funcionarios = new ArrayList();
+        funcionarios = new ArrayList<>();
+        func = new ArrayList<>();
         btn_excluir.setEnabled(false);
         btn_editar.setEnabled(false);
         btn_view.setEnabled(false);
@@ -42,6 +45,9 @@ public class Principal extends javax.swing.JFrame {
                 return false;
             }
         };
+        TableRowSorter tableSorter = new TableRowSorter(modelo);
+        tabelaPrincipal.setRowSorter(tableSorter);
+        tableSorter.toggleSortOrder(1);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < funcionarios.size(); i++) {
@@ -222,20 +228,45 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+
         editar.setVisible(true);
         int index = tabelaPrincipal.getSelectedRow();
+
         if (editar.geti()) {
-//            this.d = funcionarios.stream().filter(x -> x.getCpf().equals(editar.getCpf())).findFirst().orElse(null);
-//          if(funcionarios.get(index).getCpf().equals(editar.getCpf()) || this.d !=null){
-            funcionarios.get(index).setCpf(editar.getCpf());
-            funcionarios.get(index).setEndereco(editar.getEndereco());
-            funcionarios.get(index).setNome(editar.getNome());
-            funcionarios.get(index).setNascimento(editar.getData());
-            loadTable();
-            JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso");
-//          }else{
-//             JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO EDITAR", JOptionPane.ERROR_MESSAGE);
-//          }
+            this.d = funcionarios.stream().filter(x -> x.getCpf().equals(editar.getCpf())).findFirst().orElse(null);
+             String y = null;
+            if (this.d != null) {
+                y = this.d.getCpf();
+            }
+            if (this.d == null) {
+                System.out.println("nullo");
+                funcionarios.get(index).setCpf(editar.getCpf());
+                funcionarios.get(index).setEndereco(editar.getEndereco());
+                funcionarios.get(index).setNome(editar.getNome());
+                funcionarios.get(index).setNascimento(editar.getData());
+                loadTable();
+                JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso");
+                btn_excluir.setEnabled(false);
+                btn_editar.setEnabled(false);
+                btn_view.setEnabled(false);
+            } else if (e.equals(y)) {
+                System.out.println(this.d.toString());
+                funcionarios.get(index).setCpf(editar.getCpf());
+                funcionarios.get(index).setEndereco(editar.getEndereco());
+                funcionarios.get(index).setNome(editar.getNome());
+                funcionarios.get(index).setNascimento(editar.getData());
+                loadTable();
+                JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso");
+                btn_excluir.setEnabled(false);
+                btn_editar.setEnabled(false);
+                btn_view.setEnabled(false);
+            } else {
+                btn_excluir.setEnabled(false);
+                btn_editar.setEnabled(false);
+                btn_view.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "CPF ja cadastrado", "ERRO AO EDITAR", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btn_editarActionPerformed
 
@@ -258,6 +289,7 @@ public class Principal extends javax.swing.JFrame {
         if (this.d == null) {
             if (!"".equals(f.getCpf()) && !"".equals(f.getEndereco()) && !"".equals(f.getNome())) {
                 funcionarios.add(f);
+                func.add(f);
                 loadTable();
                 JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso");
                 cadastro.clearFuncionario();
@@ -277,6 +309,7 @@ public class Principal extends javax.swing.JFrame {
             editar.setNome(f.getNome());
             editar.setEndereco(f.getEndereco());
             editar.setData(f.getNascimento());
+            e = editar.getCpf();
             view.setCpf(f.getCpf());
             view.setNome(f.getNome());
             view.setEndereco(f.getEndereco());

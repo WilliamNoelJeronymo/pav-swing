@@ -20,39 +20,46 @@ public class Editar extends javax.swing.JDialog {
     public Editar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         setLocationRelativeTo(null);
-         txtCpfEditar.setEditable(false);
-
-            JTextFieldDateEditor editor = (JTextFieldDateEditor) txtDataEditar.getDateEditor();
-           editor.setEnabled(false);
+        setLocationRelativeTo(null);
+//        txtCpfEditar.setEditable(false);
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) txtDataEditar.getDateEditor();
+        editor.setEnabled(false);
     }
     private boolean i = false;
-    public boolean geti(){
+
+    public boolean geti() {
         return this.i;
     }
-    public String getCpf(){
+
+    public String getCpf() {
         return txtCpfEditar.getText();
     }
-    public String getNome(){
+
+    public String getNome() {
         return txtNomeEditar.getText();
     }
-    public String getEndereco(){
+
+    public String getEndereco() {
         return txtEnderecoEditar.getText();
     }
-    public Date getData(){
+
+    public Date getData() {
         return txtDataEditar.getDate();
     }
-    
-    public void setCpf(String cpf){
+
+    public void setCpf(String cpf) {
         txtCpfEditar.setText(cpf);
     }
-    public void setNome(String nome){
+
+    public void setNome(String nome) {
         txtNomeEditar.setText(nome);
     }
-    public void setEndereco(String endereco){
+
+    public void setEndereco(String endereco) {
         txtEnderecoEditar.setText(endereco);
     }
-    public void setData(Date data){
+
+    public void setData(Date data) {
         txtDataEditar.setDate(data);
     }
 
@@ -185,65 +192,28 @@ public class Editar extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCpfEditarActionPerformed
 
     private void btnSalvarEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarEditarActionPerformed
-        String nome = txtNomeEditar.getText();
-       String endereco = txtEnderecoEditar.getText();
-       Date data = txtDataEditar.getDate();
-        if(data == null ||
-                "".equals(endereco) || 
-                "".equals(nome)){
-               JOptionPane.showMessageDialog(null, "Por favor, verifique se todos os campos estão preenchidos corretamente", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
-       }else{
-        this.i = true;
-        this.dispose();
+
+        if (getData() == null
+                || getNome().isEmpty()
+                || getCpf().isEmpty()
+                || getEndereco().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, verifique se todos os campos estão preenchidos corretamente", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            this.i = true;
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalvarEditarActionPerformed
 
     private void btnCancelarEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditarActionPerformed
         this.i = false;
+        txtCpfEditar.setText("");
+        txtDataEditar.setDate(null);
+        txtEnderecoEditar.setText("");
+        txtNomeEditar.setText("");
         this.dispose();
     }//GEN-LAST:event_btnCancelarEditarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Editar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Editar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Editar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Editar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Editar dialog = new Editar(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarEditar;

@@ -4,37 +4,62 @@
  */
 package GUI;
 
+import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.util.Date;
 import entites.Funcionario;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author will
  */
 public class CadastrarTest extends javax.swing.JDialog {
-    Funcionario funcionario;
+
+    Funcionario funcionario, func;
+
     public CadastrarTest(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         JTextFieldDateEditor editor = (JTextFieldDateEditor) txtDataCadastrar.getDateEditor();
-           editor.setEnabled(false);
+        editor.setEnabled(false);
     }
-   
-    public void setFuncionario(){
-        this.funcionario = new Funcionario(txtNomeCadastrar.getText(), txtEnderecoCadastrar.getText(), txtCpfCadastrar.getText(),txtDataCadastrar.getDate());   
+
+    public void setFuncionario() {
+        this.funcionario = new Funcionario(txtNomeCadastrar.getText(), txtEnderecoCadastrar.getText(), txtCpfCadastrar.getText(), txtDataCadastrar.getDate());
+        this.func = new Funcionario(txtNomeCadastrar.getText(), txtEnderecoCadastrar.getText(), txtCpfCadastrar.getText(), txtDataCadastrar.getDate());
+
     }
-    public Funcionario getFuncionario(){
-        if(txtCpfCadastrar.getText() != null || txtEnderecoCadastrar.getText() != null || txtNomeCadastrar.getText() != null || txtDataCadastrar.getDate()!= null){
+
+    public Funcionario getFuncionario() {
+        if (txtCpfCadastrar.getText() != null || txtEnderecoCadastrar.getText() != null || txtNomeCadastrar.getText() != null || txtDataCadastrar.getDate() != null) {
             return funcionario;
         }
         return null;
     }
-    public void clearFuncionario(){
+
+    public JTextField getCpf() {
+        return txtCpfCadastrar;
+    }
+
+    public JDateChooser getData() {
+        return txtDataCadastrar;
+    }
+
+    public JTextField getEndereco() {
+        return txtEnderecoCadastrar;
+    }
+
+    public JTextField getNome() {
+        return txtNomeCadastrar;
+    }
+
+    public void clearFuncionario() {
         funcionario = null;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,7 +189,7 @@ public class CadastrarTest extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCpfCadastrarActionPerformed
 
     private void btnSalvarCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastrarActionPerformed
-       String nome = txtNomeCadastrar.getText();
+        String nome = txtNomeCadastrar.getText();
        String cpf = txtCpfCadastrar.getText();
        String endereco = txtEnderecoCadastrar.getText();
        Date data = txtDataCadastrar.getDate();
@@ -181,6 +206,7 @@ public class CadastrarTest extends javax.swing.JDialog {
         txtNomeCadastrar.setText("");
         this.dispose();
        }
+    
     }//GEN-LAST:event_btnSalvarCadastrarActionPerformed
 
     private void btnCancelarCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastrarActionPerformed
@@ -194,45 +220,7 @@ public class CadastrarTest extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastrarTest dialog = new CadastrarTest(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarCadastrar;
     private javax.swing.JButton btnSalvarCadastrar;

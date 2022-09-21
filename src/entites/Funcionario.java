@@ -58,6 +58,11 @@ public class Funcionario {
     public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" + "nome=" + nome + ", endereco=" + endereco + ", cpf=" + cpf + ", nascimento=" + nascimento + '}';
+    }
     
     
 }
