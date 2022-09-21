@@ -74,7 +74,6 @@ public class Editar extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtCpfEditar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtNomeEditar = new javax.swing.JTextField();
         txtDataEditar = new com.toedter.calendar.JDateChooser();
@@ -83,16 +82,11 @@ public class Editar extends javax.swing.JDialog {
         txtEnderecoEditar = new javax.swing.JTextField();
         btnSalvarEditar = new javax.swing.JButton();
         btnCancelarEditar = new javax.swing.JButton();
+        txtCpfEditar = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("CPF:");
-
-        txtCpfEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpfEditarActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Nome:");
 
@@ -114,6 +108,17 @@ public class Editar extends javax.swing.JDialog {
             }
         });
 
+        try {
+            txtCpfEditar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpfEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -123,9 +128,9 @@ public class Editar extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpfEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
+                        .addComponent(txtCpfEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDataEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
@@ -152,8 +157,8 @@ public class Editar extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtCpfEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabel3)
+                        .addComponent(txtCpfEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtDataEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -187,10 +192,6 @@ public class Editar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCpfEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpfEditarActionPerformed
-
     private void btnSalvarEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarEditarActionPerformed
 
         if (getData() == null
@@ -213,6 +214,10 @@ public class Editar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelarEditarActionPerformed
 
+    private void txtCpfEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfEditarActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -223,7 +228,7 @@ public class Editar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCpfEditar;
+    private javax.swing.JFormattedTextField txtCpfEditar;
     private com.toedter.calendar.JDateChooser txtDataEditar;
     private javax.swing.JTextField txtEnderecoEditar;
     private javax.swing.JTextField txtNomeEditar;
